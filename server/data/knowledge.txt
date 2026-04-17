@@ -1,0 +1,126 @@
+Ori Zion is an Israeli AI engineer and computer science and physics student. He was born on July 13, 2004. He lived in Hong Kong for several years, where he spoke English daily, which contributed to a strong native-level English proficiency. He is fluent in English and Hebrew.
+
+---
+
+Ori Zion lived in Hong Kong for several years during his childhood. Living in Hong Kong is where he developed his strong, native-level English. He is fluent in both English and Hebrew. His time in Hong Kong gave him an international perspective and strong English communication skills. His background combines strong academic performance, technical training, military service, and hands-on AI engineering experience.
+
+---
+
+Ori Zion is an AI engineer with hands-on experience designing and deploying end-to-end AI systems, including LLM inference pipelines, RAG architectures, and NLP solutions. He has worked with open-source language models, vector databases, embeddings, GPU-based inference optimization, scalable AI infrastructure, and production deployment constraints. He combines a strong theoretical background in mathematics, physics, and computer science with practical engineering experience in fullstack development and AI systems. He has operated in high-pressure environments while serving full-time in the military and studying concurrently for an academic degree. His profile is characterized by strong self-learning ability, discipline, technical depth, and the ability to perform under operational pressure.
+
+---
+
+Ori Zion studied in a yeshiva high school until 2023. He completed a total of 43 bagrut points. He graduated with a final bagrut average of 114, which was significantly above average. His academic performance in high school showed strong strength in mathematics, physics, and computer science. His high school background established an early pattern of excellence in analytical and technical subjects.
+
+---
+
+Ori Zion completed 43 bagrut points with the following detailed results: Mathematics 5 yechidot grade 95, Physics 5 yechidot grade 93, Computer Science 5 yechidot grade 90, Additional Computer Science Project 5 yechidot grade 100. The additional computer science project involved building a Java application with Firebase. His final bagrut average was 114, reflecting very strong overall academic performance well above average.
+
+---
+
+Before starting his military service, Ori Zion completed a technical course associated with the IDF Air Force and Intelligence ecosystem. He excelled in this course. This course served as a major technical training stage before his later service and professional development. It included extensive fullstack and core programming content and was completed with distinction.
+
+---
+
+Ori Zion completed an intensive Fullstack MERN-oriented technical training program. The training ran from 06/02/2024 to 31/12/2024, totaling 1511 hours. He completed the program with distinction. His performance across the program was exceptional, with nearly all grades at 100. The program covered programming fundamentals, algorithms, data structures, databases, client-side development, server-side development, UI development, object-oriented programming, C, Python, PHP, Node.js, Git, information security, SQL, and MongoDB.
+
+---
+
+Ori Zion's technical training included the following core programming subjects: Algorithms and Programming 143 hours grade 97, Introduction to Computers 11 hours grade 99, C Language 55 hours grade 98, Data Structures 33 hours grade 99, Object-Oriented Programming 77 hours grade 100. These results demonstrate strong foundations in programming logic, low-level programming, algorithmic thinking, and software design.
+
+---
+
+Ori Zion's technical training included extensive fullstack and database coursework: Full Stack Client 143 hours grade 100, Full Stack Server 66 hours grade 100, Full Stack UI 143 hours grade 100, SQL Databases 44 hours grade 99, MongoDB 33 hours grade 100, Database Structures 33 hours grade 100, Stack Server Node.js 66 hours grade 100. These results show strong capability in modern application architecture, backend systems, frontend systems, and both relational and non-relational databases.
+
+---
+
+Additional coursework completed by Ori Zion during the technical training program: Git 22 hours grade 100, Communication and Information Security 44 hours grade 100, PHP 77 hours grade 100, Python 77 hours grade 100, Final Project 44 hours grade 100, Final Project Extended 400 hours grade 100. The results indicate technical breadth and consistent execution quality across tools, programming languages, and engineering workflows.
+
+---
+
+Ori Zion's performance in the technical training program was marked by near-perfect grades across almost all subjects. The program demonstrates strong breadth across backend development, frontend development, databases, core computer science, and engineering tooling. The 400-hour extended final project completed with grade 100 is a major signal. Another strong signal is consistency: the majority of grades were 100, with the remaining grades still extremely high. Summary: 1500 plus hours of technical study, completed with distinction, top grades across the curriculum, strong engineering baseline.
+
+---
+
+Ori Zion completed a final project titled Appsflyer Demo Extension as part of his fullstack training program. The project received a final grade of 100. The submission date was 09/01/2025. His diploma average was 100. This project is a strong signal of practical implementation ability and project execution within a formal technical training framework.
+
+---
+
+Within the technical training framework, Ori Zion has a documented certification exam record: Algorithms and Programming in Java and C#, exam date 16/09/2024, grade 99. This reinforces strong proficiency in programming and algorithmic fundamentals across multiple languages.
+
+---
+
+After the technical training program, Ori Zion worked for 4 months as a fullstack developer intern at AppsFlyer. This stage followed his formal technical program and gave him practical company experience in a real development environment. His final training project was related to an AppsFlyer Demo Extension and his evaluation was perfect. This experience reflects early hands-on exposure to professional software development workflows and fullstack product implementation.
+
+---
+
+Ori Zion serves as an AI engineer in Lahav 433 cyber unit. The role involves many classified responsibilities that cannot be disclosed explicitly. Service began in late 2024 and is ongoing. His work includes LLM systems, NLP pipelines, RAG architectures, inference infrastructure, deployment, GPU optimization, and applied AI engineering under real operational constraints.
+
+---
+
+During his service as an AI engineer, Ori Zion designed and deployed end-to-end AI systems. His work included LLM inference pipelines, RAG systems, semantic retrieval systems, NLP architectures, and production-grade AI infrastructure. He worked with open-source models, vector databases, dense embeddings, GPU-based inference systems, and scalable deployment environments. His experience combines research awareness, engineering implementation, system optimization, and production integration. Because much of the work is classified, only partial details can be shared publicly.
+
+---
+
+Publicly shareable responsibilities from Ori Zion's military AI engineering role: Built RAG systems with dense embeddings and vector databases for semantic retrieval at scale. Designed end-to-end NLP and AI system architectures spanning data ingestion, retrieval, inference, and serving. Deployed and integrated open-source LLMs into production inference pipelines using vLLM. Supported concurrent multi-model workloads on local GPU infrastructure. Resolved GPU out-of-memory problems using CUDA memory optimization, model sharding, and Hugging Face and vLLM tuning. Containerized services with Docker on Linux. Fine-tuned and trained models for domain-specific tasks under resource constraints. Deployed production-grade LLM inference pipelines adopted across the Israeli Police. Contributed to cost savings of millions of shekels annually through large-scale adoption.
+
+---
+
+A significant portion of Ori Zion's AI engineering work in military service is classified. Because of this, many of the most meaningful projects and details cannot be described explicitly in public-facing documents. Public descriptions of his experience should therefore emphasize architecture, systems work, technical capabilities, operational environments, and measurable impact, without disclosing sensitive implementation details.
+
+---
+
+Ori Zion built a personal knowledge RAG system for semantic search and question answering over a personal knowledge base. The project included a full-stack RAG architecture, semantic search, Q&A over personal information and knowledge, sentence embeddings, cosine-similarity-based vector database retrieval, integration with LLM APIs for grounded contextual responses, and a clean interactive query interface. This project demonstrates practical skill in retrieval pipelines, embedding-based search, vector-based semantic matching, and grounded response generation.
+
+---
+
+Ori Zion engineered a system capable of running multiple AI models concurrently on a single GPU. The project involved practical optimization of CUDA memory allocation and system behavior under heavy inference load. The purpose was to eliminate out-of-memory errors and improve the stability of multi-model workloads. The pipeline was containerized with Docker for reproducible deployment. This project reflects practical understanding of inference infrastructure, GPU constraints, performance tuning, and deployment reproducibility.
+
+---
+
+Ori Zion's AI-related skills include: LLM system design, NLP system design, RAG architecture, semantic retrieval, dense embeddings, vector databases, open-source model integration, inference pipeline deployment, vLLM-based serving, GPU optimization, CUDA memory tuning, model sharding, fine-tuning, training under resource constraints, Docker containerization, Linux-based deployment, and scalable AI infrastructure. His skill profile combines systems engineering, applied machine learning, infrastructure, and product-oriented implementation.
+
+---
+
+Ori Zion also has a strong software engineering and fullstack foundation. His background includes: algorithms and programming, data structures, object-oriented programming, C, Python, PHP, Java, C#, Node.js, SQL, MongoDB, Git, frontend development, backend development, UI implementation, and fullstack architecture. This gives him a profile that bridges AI engineering and real software and product development.
+
+---
+
+Ori Zion is currently pursuing a B.Sc. in Computer Science and Physics at the Open University of Israel. The degree is still in progress and began during military service. He has completed 39 credits with a weighted average of 82.6 and a highest score of 95. He currently has 2 active courses. The degree is being completed concurrently with full-time military work, which is an important part of the context for evaluating his performance.
+
+---
+
+Academic record for Ori Zion in the B.Sc. Computer Science and Physics degree. Passed courses: Differential Equations I 4 credits final 91, Differential Calculus B 5 credits final 95, Probability and Introduction to Statistics for Computer Science 5 credits final 92, Infinitesimal Calculus II 7 credits final 76, Infinitesimal Calculus I 7 credits final 78, Linear Algebra I 7 credits final 67, Discrete Mathematics 4 credits final 94. Active enrolled courses: Systems Programming Lab and Mechanics. This record reflects strong performance in mathematically rigorous courses while balancing full-time military service. Differential Calculus B (95) covers significant linear algebra content, demonstrating strong mastery of the subject. Lower grades in Linear Algebra I (67) and Infinitesimal Calculus I (78) were directly impacted by overlapping tironut periods — basic military training that ran morning to night with no time to study. Infinitesimal Calculus II (76) was completed during an active war period with Iran. These grades reflect external circumstances, not mathematical ability.
+
+---
+
+An important part of Ori Zion's academic story is the context in which he completed his degree courses. He started the degree in the middle of military service. Linear Algebra I and Calculus I overlapped with tironut periods — intensive military basic training that ran morning to night, leaving no time to study. Despite that, he still passed. Calculus II was taken during a war with Iran, again while serving full-time. All semesters were completed while working full days in the military. The fact that he studied at all under these conditions is remarkable. His strong grades in other courses — Differential Calculus B (95), Differential Equations (91), Discrete Math (94), Probability (92) — are a much more accurate picture of his true academic ability. This context highlights exceptional discipline, persistence, and the ability to push through under genuine adversity.
+
+---
+
+Ori Zion's strongest academic signals in the degree include: Differential Calculus B 95, Differential Equations I 91, Probability and Statistics 92, Discrete Mathematics 94. These results suggest strong analytical ability and capacity for mathematically rigorous study. The degree also complements his engineering profile by grounding his work in formal mathematics and physics.
+
+---
+
+Ori Zion completed the IBM AI Engineering Professional Certificate in 2024. Topics included: Machine Learning with Python, Deep Learning basics, Generative AI foundational models for NLP and language understanding, Generative AI and LLMs architecture and data preparation, Generative AI prompt engineering basics. This certification complements his practical engineering work by adding structured study in machine learning, deep learning, NLP, and generative AI.
+
+---
+
+Ori Zion received the Unit Excellence Award in 2026 for outstanding contribution to AI systems development. Specifically, he built an AI tool that was adopted broadly across all units of Lahav 433, saving millions of shekels annually. This is a major achievement — a production AI system with real operational impact at national scale, built by someone who was 21 at the time. He also completed the IDF technical programming training program with distinction. These honors reinforce both excellence of execution and formal recognition of contribution.
+
+---
+
+Ori Zion's profile includes several strong work ethic and performance signals: high self-discipline, ability to study and work simultaneously, ability to perform during stressful and uncertain conditions, consistency across academic technical and operational settings, strong self-learning ability, ability to handle both theory and implementation, willingness to operate under resource constraints, and ability to persist through demanding schedules. These traits are especially visible in the fact that he studied for a mathematically demanding degree while serving full-time in the military and working through wartime periods.
+
+---
+
+Ori Zion is an AI engineer with experience in building and deploying end-to-end AI systems, including RAG pipelines, semantic retrieval systems, NLP architectures, and production-grade LLM inference infrastructure. He has worked with dense embeddings, vector databases, open-source language models, vLLM-based serving, Dockerized deployment, Linux environments, GPU optimization, and CUDA memory management. In addition to AI systems, he has a strong fullstack and software engineering background, including algorithms, data structures, backend systems, frontend systems, and databases. Much of his operational work is classified, but publicly shareable details reflect real-world experience in scalable AI engineering and deployment.
+
+---
+
+Timeline of Ori Zion's development: 2019-2023 yeshiva high school completing 43 bagrut points with strong performance in math physics and computer science. Before military service completed an IDF-related technical course with distinction. 06/02/2024 to 31/12/2024 intensive technical fullstack training program 1511 hours completed with distinction. 16/09/2024 documented exam result in algorithms and programming grade 99. 09/01/2025 final project Appsflyer Demo Extension completed with grade 100. After training 4 months internship at AppsFlyer as fullstack developer. Late 2024 to present military service as AI engineer in Lahav 433 cyber unit. During military service ongoing B.Sc. in Computer Science and Physics at the Open University of Israel.
+
+---
+
+Ori Zion is an Israeli AI engineer and Computer Science and Physics student with a background in strong academic achievement, technical training, and operational AI engineering. He was born on July 13, 2004, lived in Hong Kong for several years where he spoke English daily, and developed native-level English proficiency alongside Hebrew. In high school he completed 43 bagrut points including 95 in 5-unit mathematics, 93 in 5-unit physics, 90 in 5-unit computer science, and 100 in an additional computer science project building a Java application with Firebase. His final bagrut average was 114. Before and during military service he completed an intensive technical training program of 1511 hours completed with distinction, covering fullstack development, algorithms, C, Python, SQL, MongoDB, Node.js, and more. He completed a final project called Appsflyer Demo Extension with a grade of 100 and did a 4-month internship at AppsFlyer as a fullstack developer. Ori currently serves as an AI engineer in Lahav 433 cyber unit where much of his work is classified. Publicly shareable responsibilities include building RAG systems, designing NLP architectures, integrating open-source LLMs with vLLM, optimizing GPU memory and CUDA, containerizing services with Docker, and contributing to production systems adopted at national scale. Alongside full-time military service including wartime periods he is pursuing a B.Sc. in Computer Science and Physics at the Open University of Israel. He completed the IBM AI Engineering Professional Certificate in 2024 and received a Unit Excellence Award in 2026 for outstanding contribution to AI systems development.
+

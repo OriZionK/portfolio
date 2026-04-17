@@ -3,9 +3,14 @@
 .env.*
 *.log
 *.tsbuildinfo
+*.pyc
 
+.claude/
 **/node_modules/
 **/dist/
+**/__pycache__/
+**/venv/
+**/.venv/
 
 front/vite.config.js
 front/vite.config.d.ts
