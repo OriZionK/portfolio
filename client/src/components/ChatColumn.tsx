@@ -96,11 +96,11 @@ function fmtTime(d: Date) {
 
 function renderInlineText(text: string) {
   const parts: ReactNode[] = [];
-  const boldPattern = /\*\*(.+?)\*\*/g;
+  const pattern = /\*\*(.+?)\*\*|\[([^\]]+)\]\(((?:https?:\/\/|mailto:)[^\)]+)\)/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
-  while ((match = boldPattern.exec(text)) !== null) {
+  while ((match = pattern.exec(text)) !== null) {
     if (match.index > lastIndex) {
       parts.push(
         <bdi key={`text-${lastIndex}`}>
@@ -109,11 +109,25 @@ function renderInlineText(text: string) {
       );
     }
 
-    parts.push(
-      <strong key={`bold-${match.index}`}>
-        <bdi>{match[1]}</bdi>
-      </strong>,
-    );
+    if (match[1] !== undefined) {
+      parts.push(
+        <strong key={`bold-${match.index}`}>
+          <bdi>{match[1]}</bdi>
+        </strong>,
+      );
+    } else {
+      parts.push(
+        <a
+          key={`link-${match.index}`}
+          href={match[3]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="chat-link"
+        >
+          {match[2]}
+        </a>,
+      );
+    }
 
     lastIndex = match.index + match[0].length;
   }
@@ -294,7 +308,7 @@ export function ChatExperience({
     const intervalId = window.setInterval(() => {
       setBlink(true);
       blinkTimeoutRef.current = window.setTimeout(() => setBlink(false), 180);
-    }, 10000);
+    }, 5000);
 
     return () => {
       window.clearInterval(intervalId);

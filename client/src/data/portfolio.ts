@@ -10,6 +10,16 @@ import ibmNlp from '../../my career data/ibm/nlp-and-language-understanding-1.pn
 import ibmPromptEngineering from '../../my career data/ibm/prompt-engineering-1.png';
 import profilePoster from '../../my career data/profile/portrait-alt.png';
 import profilePhoto from '../../my career data/profile/profile-picture.jpeg';
+import summaryAgents from '../../my career data/summaries/Course 12_ Agents, RAG, langchain.pdf';
+import summaryFoundationalNlp from '../../my career data/summaries/Course_8_Gen_AI_Foundational_Models_For_NLP_&_Language_Understanding.pdf';
+import summaryGenerativeAi from '../../my career data/summaries/Course_7_Generative_AI_and_LLMs_Architecture_And_Data_Preparation.pdf';
+import summaryIntroNlp from '../../my career data/summaries/Course 4_ Introduction To Neural Networks And PyTorch.pdf';
+import summaryIntroDl from '../../my career data/summaries/Course_2_Introduction_To_Deep_Learning_&_Neural_Networks.pdf';
+import summaryMachineLearning from '../../my career data/summaries/Course 1_ Machine Learning.pdf';
+import summaryDataAnalysis from '../../my career data/summaries/IBM_ Data Analysis With Python.pdf';
+import summaryPromptEngineering from '../../my career data/summaries/IBM Prompt Engineering.pdf';
+import gpuImage1 from '../../my career data/summaries/the_GPU_1.png';
+import gpuImage2 from '../../my career data/summaries/the_GPU_2.png';
 
 export type ContactItem = {
   label: string;
@@ -38,6 +48,7 @@ export type CredentialAsset = {
   label: string;
   kind: 'image' | 'pdf';
   src: string;
+  extraSrcs?: string[];
   alt?: string;
   caption: string;
 };
@@ -188,49 +199,46 @@ const weightedAverage = (
 const experienceSignals: ExperienceSignal[] = [
   { label: 'Focus', value: 'RAG + vector DB systems' },
   { label: 'Infra', value: 'vLLM, Docker, Linux, GPU serving' },
-  { label: 'Core lang', value: 'Python-first AI engineering' },
-  { label: 'Profile', value: 'Resume-safe and source-backed' },
+  { label: 'Stack', value: 'Python-first AI engineering' },
+  { label: 'Scale', value: 'Production & operational systems' },
 ];
 
 const experienceBlocks: ExperienceBlock[] = [
   {
     id: 'rag',
     kicker: 'Priority for AI roles',
-    title: 'RAG, Semantic Retrieval, and Vector DB Pipelines',
+    title: 'RAG & Vector DB Pipelines',
     summary:
-      'Strongest positioning for AI-facing roles: retrieval pipelines that connect embeddings, vector search, and grounded answering.',
+      'End-to-end retrieval systems: embeddings, vector search, and grounded LLM answering.',
     bullets: [
-      'Built RAG systems for semantic retrieval and question answering.',
-      'Worked with dense embeddings, vector databases, semantic search, and grounded response generation.',
-      'Designed retrieval pipelines that connect embeddings, search, and LLM-based answering.',
-      'Built a personal knowledge RAG system for semantic search and Q&A over structured knowledge.',
+      'Built full RAG pipelines — ingestion, embedding, vector search, and grounded generation.',
+      'Worked with dense vector representations and semantic similarity at query time.',
+      'Shipped a personal knowledge assistant with live semantic search and Q&A.',
     ],
   },
   {
     id: 'llm',
     kicker: 'Applied LLM engineering',
-    title: 'LLM and NLP Systems',
+    title: 'LLM & NLP Systems',
     summary:
-      'Hands-on AI engineering work centered on language models, retrieval, and production-oriented serving.',
+      'Hands-on with language models, retrieval integration, and production-oriented inference.',
     bullets: [
-      'Hands-on experience with LLM inference pipelines.',
-      'Built and deployed NLP architectures for applied use cases.',
-      'Integrated open-source language models into working systems.',
-      'Worked on applied AI engineering problems involving language models, retrieval, and serving infrastructure.',
+      'Built and deployed NLP architectures for real applied use cases.',
+      'Integrated open-source LLMs into working inference pipelines.',
+      'Worked across prompting, retrieval, and model serving infrastructure.',
     ],
   },
   {
     id: 'infra',
     kicker: 'Serving and deployment',
-    title: 'Inference Infrastructure, Deployment, and GPU Optimization',
+    title: 'Inference Infrastructure & GPU Optimization',
     summary:
-      'Production-minded deployment work around inference stability, concurrency, and local GPU constraints.',
+      'Production deployment work around inference stability, concurrency, and local GPU constraints.',
     bullets: [
-      'Deployed LLM inference pipelines using vLLM.',
-      'Worked on scalable inference infrastructure and production-ready serving environments for AI models.',
-      'Supported concurrent multi-model workloads on local GPU systems.',
-      'Resolved GPU out-of-memory issues and worked on CUDA memory optimization, model sharding, and inference tuning with Hugging Face and vLLM.',
-      'Worked in Linux-based environments and containerized services with Docker.',
+      'Deployed LLM inference using vLLM on local GPU hardware.',
+      'Managed concurrent multi-model workloads under real memory pressure.',
+      'Debugged CUDA OOM errors and tuned inference with Hugging Face and vLLM.',
+      'Containerized AI services with Docker across Linux-based environments.',
     ],
   },
   {
@@ -238,24 +246,23 @@ const experienceBlocks: ExperienceBlock[] = [
     kicker: 'Full pipeline ownership',
     title: 'End-to-End AI Systems',
     summary:
-      'Experience spans the full lifecycle from ingestion and preprocessing to retrieval, inference, and operational serving.',
+      'Full lifecycle ownership from data ingestion to production serving.',
     bullets: [
-      'Experience designing and deploying end-to-end AI systems in real operational environments.',
-      'Built systems spanning data ingestion, preprocessing, embedding generation, retrieval, inference, and serving.',
-      'Worked on production-grade AI infrastructure under real deployment constraints.',
-      'Combined system design, implementation, optimization, and integration in practical environments.',
+      'Owned complete AI system pipelines: data in, inference out, deployed.',
+      'Built across ingestion, preprocessing, embedding, retrieval, and serving.',
+      'Operated under real deployment constraints — not just notebook experiments.',
     ],
   },
   {
     id: 'training',
     kicker: 'Model work',
-    title: 'Model Training, Fine-Tuning, and Applied ML',
+    title: 'Model Training, Fine-Tuning & Applied ML',
     summary:
-      'Practical ML background paired with infrastructure considerations rather than isolated notebook work.',
+      'Practical ML grounded in infrastructure — real models, real constraints.',
     bullets: [
-      'Experience fine-tuning and training models for domain-specific tasks.',
-      'Worked under resource constraints and combined practical model work with infrastructure and deployment considerations.',
-      'Completed structured study in Machine Learning with Python, Deep Learning basics, Generative AI foundations, LLM architecture, data preparation, and prompt engineering.',
+      'Fine-tuned models for domain-specific tasks under GPU constraints.',
+      'Completed IBM AI Engineering track: ML, deep learning, NLP, GenAI, and prompt engineering.',
+      'Model work paired with deployment considerations — not isolated experiments.',
     ],
   },
   {
@@ -263,25 +270,23 @@ const experienceBlocks: ExperienceBlock[] = [
     kicker: 'Language foundation',
     title: 'Python Engineering',
     summary:
-      'Python is backed by both formal training and applied AI engineering work across retrieval, ML, and backend-oriented systems.',
+      'Python backed by both formal training and applied AI engineering across retrieval, ML, and backend systems.',
     bullets: [
-      'Completed formal Python training as part of an intensive technical program.',
-      'Strong programming foundations supported by coursework in algorithms, data structures, object-oriented programming, backend systems, and software engineering workflows.',
-      'Used Python in practical AI workflows involving retrieval pipelines, model integration, semantic search systems, inference infrastructure, and end-to-end AI system orchestration.',
-      'Python experience is not just academic; it is tied to real deployment and engineering work.',
+      'Used Python across RAG pipelines, model integration, and AI backend systems.',
+      'Completed formal Python training in a 1,500+ hour intensive technical program.',
+      'Applied across real AI workflows — retrieval, inference, serving, and orchestration.',
     ],
   },
   {
     id: 'impact',
     kicker: 'Operational signal',
-    title: 'Production Impact and Recognition',
+    title: 'Production Impact & Recognition',
     summary:
-      'Resume-safe impact framing for large operational environments and formal recognition.',
+      'AI systems shipped at scale, formally recognized.',
     bullets: [
-      'Built AI systems adopted at large operational scale.',
-      'Contributed to production AI tools used broadly across units.',
-      'Work contributed to major cost savings at scale.',
-      'Received formal recognition for contribution to AI systems development.',
+      'Built AI systems adopted at large operational scale within the IDF.',
+      'Contributed to production tools used broadly across units.',
+      'Received a formal commendation for engineering contribution and impact.',
     ],
   },
 ];
@@ -290,22 +295,22 @@ const experienceToolNotes: ExperienceToolNote[] = [
   {
     name: 'PyTorch',
     safe: 'Experience with Python-based deep learning workflows and AI model integration.',
-    onlyIfTrue: 'Worked with PyTorch for model training, fine-tuning, inference, and tensor-based workflows.',
+    onlyIfTrue: 'Used for model training, fine-tuning, inference, and tensor-based deep learning workflows.',
+  },
+  {
+    name: 'vLLM',
+    safe: 'Experience with LLM inference infrastructure and GPU-based serving environments.',
+    onlyIfTrue: 'Deployed LLM inference servers with vLLM; managed concurrent requests and GPU memory constraints.',
+  },
+  {
+    name: 'Hugging Face',
+    safe: 'Worked with open-source model ecosystems and transformer-based architectures.',
+    onlyIfTrue: 'Used transformers and the model hub for loading, fine-tuning, and deploying open-source LLMs.',
   },
   {
     name: 'pandas',
     safe: 'Worked with Python for data handling, ML workflows, and AI pipeline development.',
-    onlyIfTrue: 'Used pandas for data manipulation, preprocessing, analysis, and dataset preparation.',
-  },
-  {
-    name: 'Tensors',
-    safe: 'Studied deep learning and worked on AI systems involving training, fine-tuning, and model inference.',
-    onlyIfTrue: 'Worked with tensor-based operations in deep learning workflows.',
-  },
-  {
-    name: 'Flask',
-    safe: 'Backend and API development experience as part of fullstack and AI systems work.',
-    onlyIfTrue: 'Built backend services and AI APIs with Flask.',
+    onlyIfTrue: 'Used for data manipulation, preprocessing, analysis, and dataset preparation in AI pipelines.',
   },
 ];
 
@@ -315,21 +320,21 @@ export const portfolioData = {
   degreeSnapshot,
   name: 'Ori Zion',
   role: 'AI Engineer',
-  availability: 'Open to internships, junior roles, and portfolio collaborations',
+  availability: 'Open to AI internships, junior engineering roles, and strong technical collaborations',
   institution: 'The Open University of Israel',
   location: 'Israel',
   recordIssuedAt: '15 Apr 2026',
   studentId: '326593506',
   tagline:
-    'AI systems builder with a strong math-heavy CS foundation and a bias toward practical engineering.',
+    'RAG, retrieval, and production-minded AI systems.',
   biography:
-    'Computer science and physics student focused on RAG systems, LLM tooling, and production-minded machine learning while completing a degree during active military service.',
+    'CS and physics student building RAG systems and local LLM tooling during active service.',
   focusAreas: [
-    'Systems programming',
-    'Statistics for computer science',
-    'Discrete mathematics',
-    'Calculus',
-    'Linear algebra',
+    'RAG',
+    'Vector DBs',
+    'LLM inference',
+    'vLLM',
+    'Systems',
   ],
   contactItems: [
     {
@@ -352,9 +357,9 @@ export const portfolioData = {
       href: 'https://github.com/OriZionK',
     },
     {
-      label: 'Website',
-      value: 'orizion.dev',
-      href: 'https://orizion.dev',
+      label: 'LinkedIn',
+      value: 'linkedin.com/in/ori-zion-0387a4316',
+      href: 'https://www.linkedin.com/in/ori-zion-0387a4316/',
     },
   ] satisfies ContactItem[],
   education: {
@@ -365,19 +370,19 @@ export const portfolioData = {
   skillGroups: [
     {
       title: 'Languages',
-      items: ['Python (primary)', 'JavaScript', 'Java | C'],
+      items: ['Python', 'JavaScript', 'Java', 'C'],
     },
     {
-      title: 'AI / ML',
-      items: ['NLPs', 'RAG Architectures', 'LLMs', 'PyTorch', 'Transformers', 'Model Fine-tuning'],
+      title: 'AI',
+      items: ['RAG', 'LLMs', 'PyTorch', 'Transformers'],
     },
     {
-      title: 'Tools & Infra',
-      items: ['vLLM', 'Docker', 'CUDA / GPU Opt.', 'Hugging Face', 'Linux | Git'],
+      title: 'Infra',
+      items: ['vLLM', 'Docker', 'Linux', 'Hugging Face'],
     },
     {
-      title: 'Other',
-      items: ['Vector Databases', 'REST APIs', 'System Design', 'GPU Memory Opt.'],
+      title: 'Systems',
+      items: ['Vector DBs', 'REST APIs', 'CUDA', 'System Design'],
     },
   ] satisfies SkillGroup[],
   chatMessages: [] satisfies ChatMessage[],
@@ -483,6 +488,91 @@ export const portfolioData = {
       ],
     },
     {
+      id: 'course-summaries',
+      chip: 'Summaries',
+      title: 'Self-Written Course Summaries',
+      shortTitle: 'Summaries',
+      issuer: 'Self-written',
+      period: '2025',
+      status: 'Completed',
+      summary: 'Comprehensive study notes covering machine learning, deep learning, PyTorch, generative AI, NLP, RAG, data analysis, prompt engineering, and GPU architecture.',
+      highlights: [
+        { label: 'PDFs', value: '8' },
+        { label: 'GPU Notes', value: '2 pages' },
+      ],
+      details: [
+        'Machine Learning, Deep Learning & Neural Networks, PyTorch, Generative AI & LLMs, Foundational Models for NLP, Agents & RAG, Data Analysis, Prompt Engineering',
+        'GPU architecture and CUDA fundamentals notes',
+        'All self-written during online course completion',
+      ],
+      assets: [
+        {
+          id: 'summary-ml',
+          label: 'Machine Learning',
+          kind: 'pdf',
+          src: summaryMachineLearning,
+          caption: 'Self-written course summary covering ML fundamentals.',
+        },
+        {
+          id: 'summary-dl',
+          label: 'Deep Learning & Neural Networks',
+          kind: 'pdf',
+          src: summaryIntroDl,
+          caption: 'Self-written course summary on deep learning basics.',
+        },
+        {
+          id: 'summary-nn-pytorch',
+          label: 'Neural Networks & PyTorch',
+          kind: 'pdf',
+          src: summaryIntroNlp,
+          caption: 'Self-written course summary on neural networks with PyTorch.',
+        },
+        {
+          id: 'summary-gen-ai',
+          label: 'Generative AI & LLMs',
+          kind: 'pdf',
+          src: summaryGenerativeAi,
+          caption: 'Self-written course summary on generative AI and LLMs.',
+        },
+        {
+          id: 'summary-foundational-nlp',
+          label: 'Foundational Models for NLP',
+          kind: 'pdf',
+          src: summaryFoundationalNlp,
+          caption: 'Self-written course summary on foundational NLP models.',
+        },
+        {
+          id: 'summary-agents-rag',
+          label: 'Agents, RAG & LangChain',
+          kind: 'pdf',
+          src: summaryAgents,
+          caption: 'Self-written course summary on agents and RAG systems.',
+        },
+        {
+          id: 'summary-data-analysis',
+          label: 'Data Analysis with Python',
+          kind: 'pdf',
+          src: summaryDataAnalysis,
+          caption: 'Self-written course summary on data analysis with Python.',
+        },
+        {
+          id: 'summary-prompt-eng',
+          label: 'Prompt Engineering',
+          kind: 'pdf',
+          src: summaryPromptEngineering,
+          caption: 'Self-written course summary on prompt engineering.',
+        },
+        {
+          id: 'gpu-notes',
+          label: 'GPU Architecture Notes',
+          kind: 'image',
+          src: gpuImage1,
+          extraSrcs: [gpuImage2],
+          caption: 'Self-written GPU architecture and CUDA learning notes.',
+        },
+      ],
+    },
+    {
       id: 'bagrut',
       chip: 'School Record',
       title: 'Bagrut',
@@ -563,7 +653,7 @@ export const portfolioData = {
   ] satisfies CredentialRecord[],
   experienceSignals,
   experienceSummary:
-    'AI engineering profile centered on RAG systems, vector databases, retrieval pipelines, LLM inference, and deployment-grade GPU infrastructure, with Python as the core implementation language.',
+    'RAG systems, vector databases, LLM inference, and deployment-grade GPU infrastructure — Python-first, production-minded.',
   experienceBlocks,
   experienceToolNotes,
   records: courseRecords,

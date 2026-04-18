@@ -191,7 +191,7 @@ export function MobileShell() {
                     Background, education, and current technical strengths.
                   </p>
                 </div>
-                <ProfileSectionContent includeContact={false} />
+                <ProfileSectionContent />
               </div>
             </section>
           </div>

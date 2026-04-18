@@ -94,7 +94,7 @@ export function ExperienceSectionContent() {
       <header className="experience-hero">
         <div className="experience-hero-copy">
           <p className="card-label">Experience</p>
-          <h2>AI systems work, with the important parts staying in view as you scroll.</h2>
+          <h2>Production AI engineering.</h2>
           <p className="muted-text">
             {portfolioData.experienceSummary}
           </p>
@@ -175,10 +175,13 @@ export function ExperienceSectionContent() {
               data-reveal-kind="block"
               className={`experience-chapter ${themeClass}${isVisible ? ' is-visible' : ''}${isActive ? ' is-active' : ''}`}
             >
+              <span className="experience-chapter-glow" aria-hidden />
               <div className="experience-chapter-grid">
                 <div className="experience-chapter-meta">
+                  <span className="experience-chapter-rail" aria-hidden />
                   <span className="experience-chapter-index">{String(index + 1).padStart(2, '0')}</span>
                   <span className="experience-chapter-kicker">{block.kicker}</span>
+                  {isActive ? <span className="experience-chapter-live">In view</span> : null}
                 </div>
 
                 <div className="experience-chapter-copy">
@@ -198,7 +201,8 @@ export function ExperienceSectionContent() {
 
       <section ref={proofSectionRef} className="experience-proof-note">
         <div className="experience-proof-head">
-          <h3>Use these by name only if they were actually used directly.</h3>
+          <span className="experience-command-label">Stack</span>
+          <h3>Technologies used directly in production work.</h3>
         </div>
 
         <div className="experience-tool-grid">
@@ -216,17 +220,8 @@ export function ExperienceSectionContent() {
                 data-reveal-kind="tool"
                 className={`experience-tool-strip${isVisible ? ' is-visible' : ''}`}
               >
-                <div className="experience-tool-side">
-                  <strong>{tool.name}</strong>
-                  <span>Resume-safe</span>
-                </div>
-
-                <div className="experience-tool-body">
-                  <p>{tool.safe}</p>
-                  <div className="experience-tool-divider" />
-                  <span className="experience-tool-note">If true in practice</span>
-                  <p>{tool.onlyIfTrue}</p>
-                </div>
+                <strong className="experience-tool-name">{tool.name}</strong>
+                <p className="experience-tool-desc">{tool.onlyIfTrue}</p>
               </article>
             );
           })}
