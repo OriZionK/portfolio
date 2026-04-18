@@ -15,10 +15,8 @@
 front/vite.config.js
 front/vite.config.d.ts
 
-**/my career data/
-**/knowledge/
-server/data/
+**/.env
 server/rag/.env
 server/rag/venv/
 server/rag/__pycache__/
-server/rag/prompt.txt
+**/my career data/.DS_Store
