@@ -11,6 +11,7 @@
 **/__pycache__/
 **/venv/
 **/.venv/
+**/.netlify/
 
 front/vite.config.js
 front/vite.config.d.ts

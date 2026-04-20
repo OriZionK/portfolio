@@ -1,24 +1,34 @@
 """
-FastAPI RAG service.
+Single backend service — FastAPI serving the RAG chatbot.
 
 Endpoints:
-  POST /query   { "question": "..." }  →  { "answer": "...", "chunks": [...] }
+  POST /api/chat   { "question": "...", "history": [...], "isRetry": false }
+                →  { "answer": "...", "sources": [...] }
 
-Start:
+Start locally:
     uvicorn main:app --port 8000 --reload
+
+Deploy on Render:
+    uvicorn main:app --host 0.0.0.0 --port $PORT
 """
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# These modules are written by you (Missions 2-4)
-from similarity import top_k
-from rag import answer_question
+from rag import answer_question  # noqa: E402
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class HistoryMessage(BaseModel):
@@ -26,21 +36,26 @@ class HistoryMessage(BaseModel):
     content: str
 
 
-class QueryRequest(BaseModel):
+class ChatRequest(BaseModel):
     question: str
     history: list[HistoryMessage] | None = None
-    is_retry: bool = False
+    is_retry: bool = Field(default=False, alias="isRetry")
+
+    class Config:
+        populate_by_name = True
 
 
-class QueryResponse(BaseModel):
+class ChatResponse(BaseModel):
     answer: str
-    chunks: list[str]
+    sources: list[str]
 
 
-@app.post("/query", response_model=QueryResponse)
-async def query(req: QueryRequest):
+@app.post("/api/chat", response_model=ChatResponse)
+async def chat(req: ChatRequest):
     if not req.question.strip():
         raise HTTPException(status_code=400, detail="question is required")
+
     history = [m.model_dump() for m in req.history] if req.history else None
     result = await answer_question(req.question.strip(), history=history, is_retry=req.is_retry)
-    return result
+
+    return ChatResponse(answer=result["answer"], sources=result["sources"])

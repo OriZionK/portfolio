@@ -38,8 +38,22 @@ def embed_question(question: str) -> list[float]:
 
 async def answer_question(question: str, history: list[dict] | None = None, is_retry: bool = False) -> dict:
     vector = embed_question(question)
-    chunks = top_k(vector, k=3)
-    context = "\n\n".join(chunks)
+    chunk_results = top_k(vector, k=3)
+
+    chunk_texts = [c["text"] for c in chunk_results]
+    # Sources only show when the question is genuinely about credentials:
+    # - top chunk must score above an absolute floor (question is on-topic)
+    # - each source chunk must be within 80% of the top score (no stray tangential matches)
+    top_score = chunk_results[0]["score"] if chunk_results else 0
+    MIN_TOP_SCORE = 0.32
+    sources = list(dict.fromkeys(
+        c["source"] for c in chunk_results
+        if c.get("source")
+        and top_score >= MIN_TOP_SCORE
+        and c["score"] >= top_score * 0.80
+    ))
+
+    context = "\n\n".join(chunk_texts)
 
     messages = (history or []) + [{"role": "user", "content": question}]
 
@@ -75,5 +89,6 @@ async def answer_question(question: str, history: list[dict] | None = None, is_r
 
     return {
         "answer": answer,
-        "chunks": chunks,
+        "chunks": chunk_texts,
+        "sources": sources,
     }

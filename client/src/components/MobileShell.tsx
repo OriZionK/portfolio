@@ -218,9 +218,9 @@ export function MobileShell() {
         ) : null}
 
         {activeSection === 'contact' ? (
-          <div className="mobile-screen">
-            <section className="mobile-panel">
-              <div className="mobile-panel-inner">
+          <div className="mobile-screen is-contact-view">
+            <section className="mobile-panel is-contact-view">
+              <div className="mobile-panel-inner is-contact-view">
                 <ContactSectionContent />
               </div>
             </section>

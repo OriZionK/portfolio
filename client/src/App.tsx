@@ -1,75 +1,46 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ChatColumn } from './components/ChatColumn';
 import { ExperienceSectionContent } from './components/ExperienceSection';
 import { MobileShell } from './components/MobileShell';
-import { ProfileColumn } from './components/ProfileColumn';
-import { RecordsColumn } from './components/RecordsColumn';
+import { ContactSectionContent, ProfileColumn } from './components/ProfileColumn';
+import { RecordsSectionContent } from './components/RecordsColumn';
 
-type ExperienceSpotlightStage = 'inactive' | 'spotlight' | 'expanded' | 'collapsing';
-
-const EXPERIENCE_COLLAPSE_MS = 520;
-const EXPERIENCE_EXPAND_MS = 280;
+type DesktopModalView = 'experience' | 'records' | 'contact' | null;
 
 function App() {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
-  const [experienceSpotlightStage, setExperienceSpotlightStage] = useState<ExperienceSpotlightStage>('inactive');
-  const collapseTimeoutRef = useRef<number | null>(null);
-  const expandTimeoutRef = useRef<number | null>(null);
-
-  const isExperienceSpotlight = experienceSpotlightStage !== 'inactive';
+  const [activeDesktopModal, setActiveDesktopModal] = useState<DesktopModalView>(null);
+  const [desktopModalBody, setDesktopModalBody] = useState<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    return () => {
-      if (expandTimeoutRef.current !== null) {
-        window.clearTimeout(expandTimeoutRef.current);
-      }
+    if (!activeDesktopModal) {
+      return undefined;
+    }
 
-      if (collapseTimeoutRef.current !== null) {
-        window.clearTimeout(collapseTimeoutRef.current);
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setActiveDesktopModal(null);
       }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [activeDesktopModal]);
 
   function openExperienceSpotlight() {
-    if (expandTimeoutRef.current !== null) {
-      window.clearTimeout(expandTimeoutRef.current);
-      expandTimeoutRef.current = null;
-    }
-
-    if (collapseTimeoutRef.current !== null) {
-      window.clearTimeout(collapseTimeoutRef.current);
-      collapseTimeoutRef.current = null;
-    }
-
-    setExperienceSpotlightStage('spotlight');
-    expandTimeoutRef.current = window.setTimeout(() => {
-      setExperienceSpotlightStage('expanded');
-      expandTimeoutRef.current = null;
-    }, EXPERIENCE_EXPAND_MS);
+    setActiveDesktopModal('experience');
   }
 
-  function closeExperienceSpotlight() {
-    if (expandTimeoutRef.current !== null) {
-      window.clearTimeout(expandTimeoutRef.current);
-      expandTimeoutRef.current = null;
-    }
+  function openRecordsOverlay() {
+    setActiveDesktopModal('records');
+  }
 
-    if (collapseTimeoutRef.current !== null) {
-      window.clearTimeout(collapseTimeoutRef.current);
-      collapseTimeoutRef.current = null;
-    }
-
-    if (experienceSpotlightStage === 'expanded') {
-      setExperienceSpotlightStage('collapsing');
-      collapseTimeoutRef.current = window.setTimeout(() => {
-        setExperienceSpotlightStage('inactive');
-        collapseTimeoutRef.current = null;
-      }, EXPERIENCE_COLLAPSE_MS);
-      return;
-    }
-
-    setExperienceSpotlightStage('inactive');
+  function openContactModal() {
+    setActiveDesktopModal('contact');
   }
 
   const expandedPopup = expandedImage ? createPortal(
@@ -104,45 +75,90 @@ function App() {
     <>
       <div className="app-shell">
         <div
-          className={`desktop-shell${isExperienceSpotlight ? ' is-experience-spotlight' : ''}${experienceSpotlightStage === 'expanded' ? ' is-experience-expanded' : ''}${experienceSpotlightStage === 'collapsing' ? ' is-experience-collapsing' : ''}`}
+          className={`desktop-shell${activeDesktopModal ? ' has-desktop-modal' : ''}`}
         >
-          {isExperienceSpotlight ? (
+          <main className="app-grid">
+            <ProfileColumn
+              onOpenExperience={openExperienceSpotlight}
+              onOpenCertificates={openRecordsOverlay}
+            />
+            <ChatColumn
+              onOpenExperience={openExperienceSpotlight}
+              onOpenCertificates={openRecordsOverlay}
+              onOpenContact={openContactModal}
+            />
+          </main>
+          {activeDesktopModal ? (
             <>
               <button
                 type="button"
-                className="experience-spotlight-backdrop"
-                aria-label="Close experience spotlight"
-                onClick={closeExperienceSpotlight}
+                className="desktop-content-modal-backdrop"
+                aria-label="Close modal"
+                onClick={() => setActiveDesktopModal(null)}
               />
-              <button
-                type="button"
-                className="experience-spotlight-exit"
-                onClick={closeExperienceSpotlight}
+              <section
+                className={`desktop-content-modal panel${
+                  activeDesktopModal === 'experience'
+                    ? ' is-experience'
+                    : activeDesktopModal === 'contact'
+                      ? ' is-contact'
+                      : ' is-records'
+                }`}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="desktop-content-modal-title"
               >
-                Back to normal
-              </button>
-              <aside
-                className={`experience-spotlight-panel panel panel-right is-experience-view${experienceSpotlightStage === 'expanded' ? ' is-expanded' : ''}${experienceSpotlightStage === 'collapsing' ? ' is-collapsing' : ''}`}
-                aria-label="Experience spotlight"
-              >
-                <div className="panel-inner records-column-shell is-experience-view">
-                  <div className="records-toggle-panel is-experience-view">
-                    <div className="records-toggle-content">
-                      <ExperienceSectionContent />
+                <div className="panel-inner desktop-content-modal-inner">
+                  <div className="desktop-content-modal-header">
+                    <div className="desktop-content-modal-copy">
+                      <p className="card-label">
+                        {activeDesktopModal === 'experience'
+                          ? 'Experience'
+                          : activeDesktopModal === 'contact'
+                            ? 'Contact'
+                            : 'Records'}
+                      </p>
+                      <h2 id="desktop-content-modal-title">
+                        {activeDesktopModal === 'experience'
+                          ? 'Career Experience'
+                          : activeDesktopModal === 'contact'
+                            ? 'Contact'
+                            : 'Certificates & More'}
+                      </h2>
                     </div>
+                    <button
+                      type="button"
+                      className="desktop-content-modal-close"
+                      onClick={() => setActiveDesktopModal(null)}
+                      aria-label="Close modal"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                  <div
+                    ref={setDesktopModalBody}
+                    className={`desktop-content-modal-body${
+                      activeDesktopModal === 'experience'
+                        ? ' is-experience'
+                        : activeDesktopModal === 'contact'
+                          ? ' is-contact'
+                          : ' is-records'
+                    }`}
+                  >
+                    {activeDesktopModal === 'experience' ? (
+                      <ExperienceSectionContent scrollRoot={desktopModalBody} showHeader={false} />
+                    ) : activeDesktopModal === 'contact' ? (
+                      <ContactSectionContent />
+                    ) : (
+                      <RecordsSectionContent onImageExpand={setExpandedImage} showHeader={false} />
+                    )}
                   </div>
                 </div>
-              </aside>
+              </section>
             </>
           ) : null}
-          <main className="app-grid">
-            <ProfileColumn />
-            <ChatColumn />
-            <RecordsColumn
-              onImageExpand={setExpandedImage}
-              spotlightMode={experienceSpotlightStage}
-            />
-          </main>
         </div>
         <MobileShell />
       </div>

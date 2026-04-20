@@ -1,5 +1,7 @@
 import armyFinalScore from '../../my career data/army-course/final-score.jpg';
 import armyProgramOverview from '../../my career data/army-course/program-overview.jpg';
+import armyDistinction2026 from '../../my career data/army-distinction/distinction2026.pdf';
+import armyDistinctionImage from '../../my career data/army-distinction/distinction_image.png';
 import bagrutCertificate from '../../my career data/bagrut/bagrut-certificate-1.png';
 import bagrutCertificatePageTwo from '../../my career data/bagrut/bagrut-certificate-2.png';
 import degreeSnapshot from '../../my career data/degree/degree-record.png';
@@ -11,6 +13,7 @@ import ibmPromptEngineering from '../../my career data/ibm/prompt-engineering-1.
 import profilePoster from '../../my career data/profile/portrait-alt.png';
 import profilePhoto from '../../my career data/profile/profile-picture.jpeg';
 import summaryAgents from '../../my career data/summaries/Course 12_ Agents, RAG, langchain.pdf';
+import summariesCover from '../../my career data/summaries/cover.png';
 import summaryFoundationalNlp from '../../my career data/summaries/Course_8_Gen_AI_Foundational_Models_For_NLP_&_Language_Understanding.pdf';
 import summaryGenerativeAi from '../../my career data/summaries/Course_7_Generative_AI_and_LLMs_Architecture_And_Data_Preparation.pdf';
 import summaryIntroNlp from '../../my career data/summaries/Course 4_ Introduction To Neural Networks And PyTorch.pdf';
@@ -64,6 +67,8 @@ export type CredentialRecord = {
   summary: string;
   highlights: CredentialHighlight[];
   details: string[];
+  coverImageSrc?: string;
+  showAllImageAssets?: boolean;
   assets: CredentialAsset[];
 };
 
@@ -293,6 +298,16 @@ const experienceBlocks: ExperienceBlock[] = [
 
 const experienceToolNotes: ExperienceToolNote[] = [
   {
+    name: 'Hugging Face',
+    safe: 'Worked with open-source model ecosystems and transformer-based architectures.',
+    onlyIfTrue: 'Used transformers and the model hub for loading, fine-tuning, and deploying open-source LLMs.',
+  },
+  {
+    name: 'ChromaDB',
+    safe: 'Worked with vector databases and retrieval systems for AI applications.',
+    onlyIfTrue: 'Used for embedding storage, semantic retrieval, and RAG-oriented document search workflows.',
+  },
+  {
     name: 'PyTorch',
     safe: 'Experience with Python-based deep learning workflows and AI model integration.',
     onlyIfTrue: 'Used for model training, fine-tuning, inference, and tensor-based deep learning workflows.',
@@ -301,11 +316,6 @@ const experienceToolNotes: ExperienceToolNote[] = [
     name: 'vLLM',
     safe: 'Experience with LLM inference infrastructure and GPU-based serving environments.',
     onlyIfTrue: 'Deployed LLM inference servers with vLLM; managed concurrent requests and GPU memory constraints.',
-  },
-  {
-    name: 'Hugging Face',
-    safe: 'Worked with open-source model ecosystems and transformer-based architectures.',
-    onlyIfTrue: 'Used transformers and the model hub for loading, fine-tuning, and deploying open-source LLMs.',
   },
   {
     name: 'pandas',
@@ -387,10 +397,10 @@ export const portfolioData = {
   ] satisfies SkillGroup[],
   chatMessages: [] satisfies ChatMessage[],
   promptSuggestions: [
-    'Who is Ori Zion?',
-    'What are his strongest grades?',
-    'What is he studying?',
-    'Summarize his academic profile',
+    'What concrete values will Ori bring to my team?',
+    'Can Ori operate in real production environments?',
+    "Tell me about Ori's technical experience.",
+    'Why should I choose Ori over someone else?',
   ],
   credentials: [
     {
@@ -488,6 +498,37 @@ export const portfolioData = {
       ],
     },
     {
+      id: 'army-distinction-2026',
+      chip: 'Distinction',
+      title: 'IDF Distinction 2026',
+      shortTitle: 'Distinction',
+      issuer: 'IDF',
+      period: '2026',
+      status: 'Received',
+      summary:
+        'Formal military distinction document added to the credential record.',
+      highlights: [
+        { label: 'Issuer', value: 'IDF' },
+        { label: 'Type', value: 'Distinction' },
+        { label: 'Format', value: 'PDF' },
+        { label: 'Year', value: '2026' },
+      ],
+      details: [
+        'Official distinction document imported from the career data folder.',
+        'Added as a standalone credential entry in the certificates list.',
+      ],
+      coverImageSrc: armyDistinctionImage,
+      assets: [
+        {
+          id: 'army-distinction-2026-pdf',
+          label: 'Distinction 2026',
+          kind: 'pdf',
+          src: armyDistinction2026,
+          caption: 'Official 2026 distinction PDF imported from the army-distinction folder.',
+        },
+      ],
+    },
+    {
       id: 'course-summaries',
       chip: 'Summaries',
       title: 'Self-Written Course Summaries',
@@ -505,6 +546,7 @@ export const portfolioData = {
         'GPU architecture and CUDA fundamentals notes',
         'All self-written during online course completion',
       ],
+      coverImageSrc: summariesCover,
       assets: [
         {
           id: 'summary-ml',
@@ -593,6 +635,7 @@ export const portfolioData = {
         'Computer science was completed at 5 units with a grade of 90.',
         'The additional computer science project involved building a Java application with Firebase.',
       ],
+      showAllImageAssets: true,
       assets: [
         {
           id: 'bagrut-certificate',
@@ -631,6 +674,7 @@ export const portfolioData = {
         'The 400-hour extended final project Appsflyer Demo Extension received a grade of 100.',
         'A documented Algorithms and Programming certification exam in Java and C# was completed on 16/09/2024 with a grade of 99.',
       ],
+      showAllImageAssets: true,
       assets: [
         {
           id: 'army-program-overview',

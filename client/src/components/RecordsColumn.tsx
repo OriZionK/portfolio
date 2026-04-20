@@ -14,15 +14,25 @@ const DESKTOP_RECORD_VIEWS = [
 type DesktopRecordView = (typeof DESKTOP_RECORD_VIEWS)[number]['id'];
 type SpotlightMode = 'inactive' | 'spotlight' | 'expanded' | 'collapsing';
 
-import type { CredentialRecord } from '../data/portfolio';
+import type { CredentialAsset, CredentialRecord } from '../data/portfolio';
 
 type Props = {
   credentials?: CredentialRecord[];
   title?: string;
   onImageExpand?: (src: string) => void;
+  showHeader?: boolean;
 };
 
-export function RecordsSectionContent({ credentials, title = 'Certificates & Records', onImageExpand }: Props) {
+function getCredentialImageSources(asset: CredentialAsset) {
+  return asset.kind === 'image' ? [asset.src, ...(asset.extraSrcs ?? [])] : [];
+}
+
+export function RecordsSectionContent({
+  credentials,
+  title = 'Certificates & Records',
+  onImageExpand,
+  showHeader = true,
+}: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [activeAssetIndex, setActiveAssetIndex] = useState(0);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -34,6 +44,9 @@ export function RecordsSectionContent({ credentials, title = 'Certificates & Rec
   const activeCredentials = credentials ?? portfolioData.credentials;
   const selectedCredential = activeCredentials.find((credential) => credential.id === selectedId);
   const activeAsset = selectedCredential?.assets[activeAssetIndex] ?? selectedCredential?.assets[0] ?? null;
+  const showAllImageAssets = Boolean(
+    selectedCredential?.showAllImageAssets && selectedCredential.assets.every((asset) => asset.kind === 'image'),
+  );
   const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const modalRef = useRef<HTMLElement | null>(null);
   const closeTimeoutRef = useRef<number | null>(null);
@@ -143,21 +156,23 @@ export function RecordsSectionContent({ credentials, title = 'Certificates & Rec
 
   return (
     <>
-      <header className="records-header">
-        <div className="records-header-top">
-          <p className="card-label">{title === 'Course Summaries' ? 'Summaries' : 'Credentials'}</p>
-          <span className="records-count">{activeCredentials.length}</span>
-        </div>
-        <h2>{title}</h2>
-        <p className="muted-text">
-          {title === 'Course Summaries'
-            ? 'Self-written study notes and summaries from online courses.'
-            : 'Click any card to expand the full certificate and details.'}
-        </p>
-      </header>
+      {showHeader ? (
+        <header className="records-header">
+          <div className="records-header-top">
+            <p className="card-label">{title === 'Course Summaries' ? 'Summaries' : 'Credentials'}</p>
+            <span className="records-count">{activeCredentials.length}</span>
+          </div>
+          <h2>{title}</h2>
+          <p className="muted-text">
+            {title === 'Course Summaries'
+              ? 'Self-written study notes and summaries from online courses.'
+              : 'Click any card to expand the full certificate and details.'}
+          </p>
+        </header>
+      ) : null}
 
       <section className="credential-list" aria-label="Credential cards">
-        {activeCredentials.map((credential, index) => (
+        {activeCredentials.map((credential) => (
           <button
             key={credential.id}
             type="button"
@@ -168,52 +183,27 @@ export function RecordsSectionContent({ credentials, title = 'Certificates & Rec
             }}
             aria-expanded={selectedCredential?.id === credential.id}
           >
-            <div className="credential-list-index-col">
-              <span className="credential-list-index">{String(index + 1).padStart(2, '0')}</span>
-            </div>
-
             <div className="credential-list-body">
-              <div className="credential-list-copy">
-                <span className="credential-mini-chip">{credential.chip}</span>
-                <strong>{credential.title}</strong>
-                <p>{credential.summary}</p>
+              <div className="credential-card-thumb" aria-hidden>
+                {credential.coverImageSrc ? (
+                  <img src={credential.coverImageSrc} alt="" />
+                ) : credential.assets[0].kind === 'pdf' ? (
+                  <div className="credential-card-thumb-pdf">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="16" y1="13" x2="8" y2="13" />
+                      <line x1="16" y1="17" x2="8" y2="17" />
+                      <polyline points="10 9 9 9 8 9" />
+                    </svg>
+                  </div>
+                ) : (
+                  <img src={credential.assets[0].src} alt="" />
+                )}
               </div>
 
-              <div className="credential-list-right">
-                <div className="credential-card-thumb" aria-hidden>
-                  {credential.assets[0].kind === 'pdf' ? (
-                    <div className="credential-card-thumb-pdf">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                        <polyline points="14 2 14 8 20 8" />
-                        <line x1="16" y1="13" x2="8" y2="13" />
-                        <line x1="16" y1="17" x2="8" y2="17" />
-                        <polyline points="10 9 9 9 8 9" />
-                      </svg>
-                      <span>{credential.assets.length}</span>
-                    </div>
-                  ) : (
-                    <img src={credential.assets[0].src} alt="" />
-                  )}
-                </div>
-                <div className="credential-list-meta">
-                  <span>{credential.period}</span>
-                  <div className="credential-status-badge">
-                    <span
-                      className={`credential-status-dot ${
-                        credential.status.toLowerCase().includes('progress')
-                          ? 'is-ongoing'
-                          : 'is-done'
-                      }`}
-                    />
-                    <span className="credential-status-text">{credential.status}</span>
-                  </div>
-                </div>
-                <div className="credential-card-arrow" aria-hidden>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </div>
+              <div className="credential-list-copy">
+                <strong>{credential.title}</strong>
               </div>
             </div>
           </button>
@@ -251,7 +241,7 @@ export function RecordsSectionContent({ credentials, title = 'Certificates & Rec
               </div>
 
               <div className="credential-modal-body">
-                {selectedCredential.assets.length > 1 && (
+                {!showAllImageAssets && selectedCredential.assets.length > 1 && (
                   <aside className={`credential-asset-sidebar${isSidebarExpanded ? ' is-expanded' : ''}`}>
                     <button
                       type="button"
@@ -295,7 +285,27 @@ export function RecordsSectionContent({ credentials, title = 'Certificates & Rec
 
                 {activeAsset && (
                   <div className="credential-asset-stage">
-                    {activeAsset.kind === 'pdf' ? (
+                    {showAllImageAssets ? (
+                      <div className="credential-image-stack-view">
+                        {selectedCredential.assets.flatMap((asset) =>
+                          getCredentialImageSources(asset).map((src, si) => (
+                            <div key={`${asset.id}-${src}`} className="credential-image-wrapper">
+                              <button
+                                type="button"
+                                className="credential-image-expand"
+                                onClick={() => onImageExpand?.(src)}
+                                aria-label="Expand image"
+                              >
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                                </svg>
+                              </button>
+                              <img src={src} alt={si === 0 ? asset.label : `${asset.label} (${si + 1})`} />
+                            </div>
+                          )),
+                        )}
+                      </div>
+                    ) : activeAsset.kind === 'pdf' ? (
                       <div className="credential-pdf-viewer">
                         <button
                           type="button"
@@ -315,7 +325,7 @@ export function RecordsSectionContent({ credentials, title = 'Certificates & Rec
                       </div>
                     ) : (
                       <div className="credential-image-stack-view">
-                        {[activeAsset.src, ...(activeAsset.extraSrcs ?? [])].map((src, si) => (
+                        {getCredentialImageSources(activeAsset).map((src, si) => (
                           <div key={src} className="credential-image-wrapper">
                             <button
                               type="button"
@@ -333,7 +343,7 @@ export function RecordsSectionContent({ credentials, title = 'Certificates & Rec
                       </div>
                     )}
 
-                    {selectedCredential.assets.length > 1 && activeAsset && (
+                    {!showAllImageAssets && selectedCredential.assets.length > 1 && activeAsset && (
                       <div className="credential-stage-nav">
                         <button
                           type="button"

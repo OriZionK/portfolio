@@ -22,16 +22,20 @@ def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
     return dot(a, b) / mag
 
 
-def top_k(query_vector: list[float], k: int = 3) -> list[str]:
+def top_k(query_vector: list[float], k: int = 3) -> list[dict]:
+    """Return the top-k chunks as dicts with 'text' and 'source' fields."""
     chunks = json.loads(EMBEDDINGS_FILE.read_text(encoding="utf-8"))
 
     q = np.array(query_vector, dtype=float)
 
     scored = [
-        (cosine_similarity(q, np.array(chunk["vector"], dtype=float)), chunk["text"])
+        (cosine_similarity(q, np.array(chunk["vector"], dtype=float)), chunk)
         for chunk in chunks
     ]
 
     scored.sort(key=lambda x: x[0], reverse=True)
 
-    return [text for _, text in scored[:k]]
+    return [
+        {"text": chunk["text"], "source": chunk.get("source"), "score": score}
+        for score, chunk in scored[:k]
+    ]

@@ -2,6 +2,111 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { portfolioData, type ChatMessage } from '../data/portfolio';
 import { queryRag, type HistoryMessage } from '../services/ragService';
 
+function ChevronDownIcon({ size = 11 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 11 11" fill="none" aria-hidden>
+      <path
+        d="M2 3.5L5.5 7L9 3.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function MessageSources({ sourceIds }: { sourceIds: string[] }) {
+  const [open, setOpen] = useState(false);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+
+  const credentials = portfolioData.credentials.filter((c) => sourceIds.includes(c.id));
+  if (credentials.length === 0) return null;
+
+  const imageAssets = credentials.flatMap((c) =>
+    c.assets.filter((a) => a.kind === 'image').map((a) => ({ ...a, credChip: c.chip, credTitle: c.shortTitle })),
+  );
+
+  return (
+    <div className="msg-sources">
+      <button
+        type="button"
+        className={`msg-sources-toggle${open ? ' msg-sources-toggle--open' : ''}`}
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        <span>Sources</span>
+        <ChevronDownIcon />
+      </button>
+
+      {open && (
+        <div className="msg-sources-body">
+          {credentials.map((cred) => (
+            <div key={cred.id} className="msg-source-group">
+              <p className="msg-source-group-label">{cred.chip} · {cred.shortTitle}</p>
+              <div className="msg-source-thumbs">
+                {cred.assets.map((asset) =>
+                  asset.kind === 'pdf' ? (
+                    <a
+                      key={asset.id}
+                      href={asset.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="msg-source-thumb"
+                      aria-label={`Open ${asset.label}`}
+                    >
+                      {cred.coverImageSrc ? (
+                        <img src={cred.coverImageSrc} alt={asset.label} loading="lazy" />
+                      ) : (
+                        <div className="msg-source-pdf-icon">PDF</div>
+                      )}
+                    </a>
+                  ) : (
+                    <button
+                      key={asset.id}
+                      type="button"
+                      className="msg-source-thumb"
+                      onClick={() => setLightboxSrc(asset.src)}
+                      aria-label={`View ${asset.label}`}
+                    >
+                      <img src={asset.src} alt={asset.label} loading="lazy" />
+                    </button>
+                  ),
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {lightboxSrc && (
+        <div
+          className="msg-lightbox"
+          onClick={() => setLightboxSrc(null)}
+          role="dialog"
+          aria-modal
+          aria-label="Document preview"
+        >
+          <img
+            src={lightboxSrc}
+            alt=""
+            className="msg-lightbox-img"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            type="button"
+            className="msg-lightbox-close"
+            onClick={() => setLightboxSrc(null)}
+            aria-label="Close preview"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function SendIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden>
@@ -29,6 +134,32 @@ function SpinnerIcon() {
         strokeDashoffset="9"
         strokeLinecap="round"
       />
+    </svg>
+  );
+}
+
+function ExperienceRailIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M5 19.5h14M7.5 16V8.5M12 16V4.5M16.5 16v-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function RecordsRailIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M7.5 4.5h9A1.5 1.5 0 0 1 18 6v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 18V6a1.5 1.5 0 0 1 1.5-1.5Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M9 9h6M9 12h6M9 15h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ContactRailIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M4.5 7.5A3 3 0 0 1 7.5 4.5h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-9a3 3 0 0 1-3-3v-9Z" stroke="currentColor" strokeWidth="1.8" />
+      <path d="m7.5 9 4.5 3.75L16.5 9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -86,6 +217,7 @@ type Status = 'online' | 'thinking' | 'streaming';
 type Message = ChatMessage & {
   timestamp: Date;
   animDelay: number;
+  sources?: string[];
 };
 
 const STREAM_MS = 13;
@@ -413,7 +545,7 @@ export function ChatExperience({
     setStatus('thinking');
 
     try {
-      const answer = await queryRag(trimmed, historyRef.current);
+      const { answer, sources } = await queryRag(trimmed, historyRef.current);
       historyRef.current = ([
         ...historyRef.current,
         { role: 'user', content: trimmed },
@@ -424,6 +556,7 @@ export function ChatExperience({
         id: assistantId,
         sender: 'assistant',
         text: '',
+        sources,
         timestamp: new Date(),
         animDelay: 0,
       };
@@ -545,6 +678,10 @@ export function ChatExperience({
                       </div>
                     )}
 
+                    {message.sender === 'assistant' && message.sources && message.sources.length > 0 && (
+                      <MessageSources sourceIds={message.sources} />
+                    )}
+
                     <div className={`message-toolbar message-toolbar--${message.sender}`}>
                       <time className="msg-time">{fmtTime(message.timestamp)}</time>
                       {message.sender === 'assistant' ? (
@@ -628,21 +765,78 @@ export function ChatExperience({
               {isDisabled ? <SpinnerIcon /> : <SendIcon />}
             </button>
           </div>
-          <p className="composer-hint">
-            {hasMessages
-              ? 'Enter sends. Shift+Enter adds a new line.'
-              : 'Start with a prompt or ask your own question.'}
-          </p>
         </form>
       </div>
     </section>
   );
 }
 
-export function ChatColumn() {
+function DesktopChatRail({
+  onOpenExperience,
+  onOpenCertificates,
+  onOpenContact,
+}: {
+  onOpenExperience: () => void;
+  onOpenCertificates: () => void;
+  onOpenContact: () => void;
+}) {
+  const actions = [
+    {
+      id: 'experience',
+      label: 'Experience',
+      tone: 'is-experience',
+      icon: <ExperienceRailIcon />,
+      onClick: onOpenExperience,
+    },
+    {
+      id: 'records',
+      label: 'Certificates & more',
+      tone: 'is-records',
+      icon: <RecordsRailIcon />,
+      onClick: onOpenCertificates,
+    },
+    {
+      id: 'contact',
+      label: 'Contact',
+      tone: 'is-contact',
+      icon: <ContactRailIcon />,
+      onClick: onOpenContact,
+    },
+  ] as const;
+
+  return (
+    <nav className="chat-action-rail" aria-label="Chat quick actions">
+      <ul className="chat-action-list">
+        {actions.map((action) => (
+          <li key={action.id} className={`chat-action-item ${action.tone}`}>
+            <button type="button" className="chat-action-button" onClick={action.onClick}>
+              <span className="chat-action-icon">{action.icon}</span>
+              <span className="chat-action-label">{action.label}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+export function ChatColumn({
+  onOpenExperience,
+  onOpenCertificates,
+  onOpenContact,
+}: {
+  onOpenExperience: () => void;
+  onOpenCertificates: () => void;
+  onOpenContact: () => void;
+}) {
   return (
     <section className="panel panel-center" id="assistant">
       <div className="panel-inner chat-only-layout">
+        <DesktopChatRail
+          onOpenExperience={onOpenExperience}
+          onOpenCertificates={onOpenCertificates}
+          onOpenContact={onOpenContact}
+        />
         <ChatExperience />
       </div>
     </section>
