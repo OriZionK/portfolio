@@ -3063,6 +3063,27 @@ a.contact-card:hover {
   color: var(--ink-3);
 }
 
+.resume-download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  transition: color 160ms, border-color 160ms, background 160ms;
+}
+
+.resume-download-link:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
 .availability-copy {
   margin: 7px 0 0;
   font-size: 0.84rem;

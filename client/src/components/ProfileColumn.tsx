@@ -180,6 +180,17 @@ export function ProfileSectionContent() {
             </article>
           ))}
         </div>
+
+        <a
+          href="/ori_zion_resume.pdf"
+          download="Ori_Zion_Resume.pdf"
+          className="resume-download-link"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" aria-hidden>
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z" />
+          </svg>
+          Download Resume
+        </a>
       </section>
 
       <section className="resume-section profile-section-card">
