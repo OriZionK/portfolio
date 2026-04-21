@@ -6677,6 +6677,23 @@ a.contact-card:hover {
 }
 
 @media (max-width: 780px) {
+  html,
+  body,
+  #root {
+    min-height: 100dvh;
+    height: 100dvh;
+    overflow: hidden;
+    overscroll-behavior-y: none;
+    background: #fff;
+  }
+
+  .app-shell {
+    min-height: 100dvh;
+    height: 100dvh;
+    overflow: hidden;
+    background: #fff;
+  }
+
   .desktop-shell {
     display: none;
   }
@@ -6686,6 +6703,14 @@ a.contact-card:hover {
     height: 100dvh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+  }
+
+  .mobile-stage,
+  .mobile-screen,
+  .mobile-chat-surface .message-list {
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .mobile-chat-surface .chat-empty {
