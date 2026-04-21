@@ -1,8 +1,10 @@
+const PRODUCTION_API_BASE_URL = 'https://portfolio-rag-s2z3.onrender.com';
+
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim()
   ? import.meta.env.VITE_API_BASE_URL.trim().replace(/\/$/, '')
   : import.meta.env.DEV
     ? 'http://localhost:8000'
-    : '';
+    : PRODUCTION_API_BASE_URL;
 
 export type HistoryMessage = { role: 'user' | 'assistant'; content: string };
 
