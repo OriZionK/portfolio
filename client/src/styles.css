@@ -3631,6 +3631,8 @@ a.contact-card:hover {
 
 .message-row--assistant {
   align-self: flex-start;
+  width: 100%;
+  max-width: 100%;
 }
 
 .message-row--user {
@@ -3671,10 +3673,14 @@ a.contact-card:hover {
 
 .message-stack--assistant {
   align-items: flex-start;
+  flex: 1;
+  min-width: 0;
+  max-width: none;
 }
 
 .assistant-response {
-  max-width: min(100%, 42rem);
+  width: 100%;
+  max-width: none;
   padding: 2px 0;
   color: rgba(17, 17, 20, 0.92);
   font-size: 0.98rem;
