@@ -50,6 +50,11 @@ class ChatResponse(BaseModel):
     sources: list[str]
 
 
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
+
+
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest):
     if not req.question.strip():
