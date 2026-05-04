@@ -12,7 +12,7 @@ Deploy on Render:
     uvicorn main:app --host 0.0.0.0 --port $PORT
 """
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
@@ -53,6 +53,11 @@ class ChatResponse(BaseModel):
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+@app.head("/health")
+def health_head():
+    return Response(status_code=200)
 
 
 @app.post("/api/chat", response_model=ChatResponse)
